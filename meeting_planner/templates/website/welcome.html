@@ -1,0 +1,32 @@
+<!-- Tells Django that I want the parent template to be base.html and this is the child template -->
+{% extends "base.html" %} 
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Meeting Planner!</h1>
+     <p>
+         This is the demo application for the course
+         <em>Django: Getting Started</em>
+         on <a href="https://www.pluralsight.com">
+         Pluralsight</a>.
+     </p>
+     <!-- <p>
+        Hi! There are currently {{ num_meetings }} meetings in the database
+     </p> -->
+
+     {% if user.is_authenticated %}
+        <h2>Meetings</h2>
+        <ul>
+            {% for meeting in meetings %}
+                <li>
+                    <a href="{% url 'detail' meeting.id %}"> <!-- detail matches 'name' url path name in urls.py -->
+                    <!-- <a href="/meetings/{{meeting.id}}"> -->
+                        {{ meeting.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'rooms' %}">Rooms list</a>
+    {% endif %}
+    {% endblock %}
